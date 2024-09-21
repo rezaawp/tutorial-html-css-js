@@ -158,3 +158,47 @@ ajax({
 }
 ```
 
+## Colspan datatable server side
+```
+const roleDatatable = $('#roles').DataTable({
+    processing: true,
+    serverSide: true,
+    pageLength: 10,
+    dom: '<"d-flex justify-content-between"<"dt-action-buttons"B><"f-flex"f>>tr<"d-flex justify-content-between"<"l-flex"l><"i-flex"i><"p-flex"p>>',
+    buttons: ['excel', 'pdf'],
+    ajax: {
+        url: '{{ route('role.datatable') }}',
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    },
+    columns: [
+        { data: 'id' },
+        { data: 'name' },
+        { data: 'action' },
+    ],
+    columnDefs: [
+        {
+            targets: 0, // Index kolom yang ingin disembunyikan
+            visible: false, // Menyembunyikan kolom
+        }
+    ],
+    drawCallback: function(settings) {
+        // Dapatkan baris terakhir dari tabel
+        const lastRow = $('#roles tbody tr:last');
+
+        // Modifikasi baris terakhir dengan colspan
+        if (lastRow.length > 0) {
+            lastRow.html('<td colspan="3">This is the last row with colspan</td>');
+        }
+    },
+    responsive: {
+        details: {
+            type: "column",
+            target: "tr",
+        },
+    },
+});
+
+```
+
