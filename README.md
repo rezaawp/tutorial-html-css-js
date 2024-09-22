@@ -2,6 +2,19 @@
 
 ## js
 
+### 
+```js
+$('#TabelData1 tbody').on('click', '.btn-edit', function() {
+    let _this = $(this);
+
+    const id = _this.data("id")
+
+    $wire.dispatch('showEdit', {
+        id
+    })
+})
+```
+
 ### selector untuk trigger event di masing masing tag dengan membawa data
 ```javascript
 $("button[title=\"Delete\"]").click(function() {
