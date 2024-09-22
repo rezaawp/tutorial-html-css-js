@@ -215,3 +215,14 @@ const roleDatatable = $('#roles').DataTable({
 
 ```
 
+Untuk melakukan reload DataTables tetapi tetap berada di halaman pagination saat ini, kamu bisa menggunakan metode `draw(false)` pada DataTables. Metode ini memungkinkan DataTables untuk melakukan refresh tanpa mereset halaman saat ini ke halaman pertama.
+
+Berikut adalah modifikasi pada kode `roleDatatable.ajax.reload()`:
+
+```javascript
+Livewire.on('updatedData', function() {
+    roleDatatable.ajax.reload(null, false); // false memastikan bahwa pagination tetap di halaman saat ini
+});
+```
+
+Dengan `false` sebagai parameter kedua, DataTables akan merefresh datanya dan tetap berada di halaman yang sedang aktif tanpa kembali ke halaman pertama.
